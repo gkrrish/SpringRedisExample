@@ -1,0 +1,39 @@
+I want to use the redis server, I dont need enterprise level things, is it free in production?
+----------------------------------------------------------------------------------------------
+I can tell you about using Redis server for free in production:
+
+Yes, Redis itself is free to use in production under the Redis Source Available License (RSAL). This means you can download the software and run it on your own servers for free, even for commercial applications.
+
+Here are some things to keep in mind:
+
+Free tier limitations: While Redis server is free, some cloud-hosted Redis services may have limitations on free tiers, like resource restrictions. Be sure to check the specific provider's terms.
+Management responsibility: Running your own Redis server means you're responsible for managing it, including installation, configuration, security, and backups.
+Limited features: Free Redis may not include all the features offered by paid plans, such as high availability or advanced monitoring tools.
+Here are some options for using Redis for free in production:
+
+Self-hosted: Download and install Redis on your own server. This gives you complete control but requires more management effort.
+Free cloud tiers: Some cloud providers offer free tiers for managed Redis services. These can be a good option for getting started or for low-traffic applications.
+Here are some resources to help you get started:
+
+Redis licensing: https://redis.com/legal/licenses/
+Free hosted Redis:
+Redis Labs: https://redis.com/cloud/pricing/
+Aiven: https://aiven.io/press/aiven-launches-free-plans-for-postgresql-mysql-and-redis
+
+===================================================================================================
+
+Redis.com vs Redis.io?
+-----------------------
+Redis.com and Redis.io are both related to Redis, but they serve different purposes:
+
+Redis.io: This is the official website for the open-source Redis project. Here you'll find information about downloading and installing Redis, its features, documentation, and the open-source community.  If you're looking to use the free, downloadable version of Redis and manage it yourself, Redis.io is the place to go.
+
+Redis.com: This website is run by Redis Labs, a company that offers commercial Redis products and services. Redis Labs developed the open-source Redis but provides additional features and functionalities in their paid products. Here you'll find information about Redis Enterprise, a managed Redis service with features like high availability, automatic scaling, and enterprise-grade security. They also offer cloud-hosted Redis options and other paid services.
+
+In short:
+
+Use Redis.io if you want the free, open-source Redis server and are comfortable managing it yourself.
+Use Redis.com if you're interested in:
+Paid, managed Redis services with additional features.
+Cloud-hosted Redis options.
+Enterprise-grade support and functionalities.
