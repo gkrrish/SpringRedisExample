@@ -18,7 +18,8 @@ public class RedisController {
 	@PostMapping("/set")
 	@ResponseStatus(HttpStatus.OK)
 	public String setHelloWorldKey() {
-		redisService.setHelloWorldKey();
+//		redisService.setHelloWorldKey();
+		redisService.fromLuaScript();
 		return "Saved";
 	}
 
