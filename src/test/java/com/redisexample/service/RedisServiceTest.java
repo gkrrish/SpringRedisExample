@@ -6,12 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.redisexample.entity.Employee;
 
 @SpringBootTest // used for integration testing
@@ -20,12 +20,8 @@ public class RedisServiceTest {
 
 	@Autowired
 	private RedisService redisService;
-	
-	@Autowired
-    private RedisTemplate<String, String> redisTemplate;
 
 	@Test
-	@Disabled
 	public void testSaveRecord() {
 
 		Employee emp = new Employee();
@@ -35,7 +31,7 @@ public class RedisServiceTest {
 		emp.setCity("Hyderabad");
 		int ttlInSeconds = 120;
 
-		String KEY = "TEST-ENVIRONMENT-" + emp.getId() + "" + emp.getName();
+		String KEY = "TEST-ENVIRONMENT-2" + emp.getId() + "" + emp.getName();
 		String saveRecord = redisService.saveRecord(KEY, emp.getId(), emp.getName(), String.valueOf(emp.getAge()),
 				emp.getCity(), ttlInSeconds);
 
@@ -61,16 +57,15 @@ public class RedisServiceTest {
 
 	}
 	
-	@Disabled
 	@Test
-	public void testinsertListOfEmployees() {
+	public void testinsertListOfEmployees() throws JsonProcessingException {
 		List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee("1", "John", 30,"Hyderabad"));
-        employees.add(new Employee("2", "Jane", 35,"Bangalore"));
+		employees.add(new Employee("1", "John", 30, "Hyderabad"));
+		employees.add(new Employee("2", "Jane", 35, "Bangalore"));
 
-        redisService.insertListOfEmployees(employees);
+		String rValue = redisService.insertListOfEmployees("TEST-KEY",new ObjectMapper().writeValueAsString(employees));
 
-        assertEquals("John", redisTemplate.opsForHash().get("employees:1", "name"));
+		assertEquals("Employees inserted successfully", rValue);
 
 	}
 

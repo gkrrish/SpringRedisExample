@@ -1,7 +1,6 @@
 package com.redisexample.service;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -13,7 +12,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.redisexample.entity.Employee;
 import com.redisexample.util.RedisUtil;
@@ -87,18 +85,12 @@ public class RedisService {
 				serializedEmployee);
     }
 	
-	public void insertListOfEmployees(List<Employee> employees) {
-		try {
-			String serializedEmployees = new ObjectMapper().writeValueAsString(employees);
-			String luaScript = RedisUtil.readLuaScript(insertListOfEmployeePath);
+	public String insertListOfEmployees(String key, String serializedListOfemployees) {
+		String luaScript = RedisUtil.readLuaScript(insertListOfEmployeePath);
+
+		String result = redisTemplate.execute(new DefaultRedisScript<>(luaScript, String.class),Collections.singletonList(key),serializedListOfemployees);
+		return result;
 			
-			String result = redisTemplate.execute(new DefaultRedisScript<>(luaScript, String.class),
-							Collections.singletonList(serializedEmployees));
-			
-			log.info("Lua script execution result: " + result);
-		} catch (JsonProcessingException e) {
-			log.info("got issue while insertListOfEmployees");
-		}
 	}
 
 }
